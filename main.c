@@ -54,17 +54,12 @@ int main(int argc, char* argv[]) {
             printf("%d: ", num);
 
             char* p = buf;
-            p = print_range(p, ptr_found);
-            printf(RED);
-            p = print_range(p, ptr_found + pat_ln);
-            printf(RESET);
-
-            while (ptr_found = brute_force_search(pat, ptr_found + pat_ln)) {
+            do {
                 p = print_range(p, ptr_found);
                 printf(RED);
                 p = print_range(p, ptr_found + pat_ln);
                 printf(RESET);
-            }
+            } while (ptr_found = brute_force_search(pat, ptr_found + pat_ln));
             printf("%s", p);
         }
         ++num;
