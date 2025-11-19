@@ -5,7 +5,7 @@
 
 #define BUF_SZ 1000
 
-#define RED "\e[0;31m"
+#define RED "\e[1;31m"
 #define RESET "\e[0m"
 
 char* brute_force_search(char* sub, char* str) {
