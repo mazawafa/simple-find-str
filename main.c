@@ -27,13 +27,13 @@ char* print_range(const char* start, const char* end) {
 }
 
 int main(int argc, char* argv[]) {
-    char* pat = argv[2];
-    size_t pat_ln = strlen(pat);
-
     if (argc < 3) {
         printf("usage: %s FILENAME STRING\n", argv[0]);
         return EXIT_FAILURE;
     }
+
+    char* pat = argv[2];
+    size_t pat_ln = strlen(pat);
 
     /* Open file */
     FILE* fp = fopen(argv[1], "r");
