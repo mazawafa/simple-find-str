@@ -43,23 +43,26 @@ int main(int argc, char* argv[]) {
     }
 
     /* Read file line by line */
-    char* buf = malloc(BUF_SZ);
-    char* ptr_found;
-    int num = 1;
+    char* buf = malloc(BUF_SZ); // Buffer to keep line characters
+    char* ptr_found;            // Pointer to current match
+    int num = 1;                // Current line number
     while (fgets(buf, BUF_SZ, fp)) {
 
-        /* Find several matches in the line */
+        /* FIND MATCHES */
         ptr_found = brute_force_search(pat, buf);
         if (ptr_found) {
             printf("%d: ", num);
 
-            char* p = buf;
+            char* p = buf; // Pointer to print
             do {
+                /* Print match */
                 p = print_range(p, ptr_found);
                 printf(RED);
                 p = print_range(p, ptr_found + pat_ln);
                 printf(RESET);
+                /* Find next match if any */
             } while (ptr_found = brute_force_search(pat, ptr_found + pat_ln));
+            /* Print last characters */
             printf("%s", p);
         }
         ++num;
