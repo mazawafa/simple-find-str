@@ -18,13 +18,6 @@ const char* brute_force_search(const char* haystack, const char* needle) {
     return NULL;
 }
 
-const char* print_range(const char* start, const char* end) {
-    const char* p;
-    for (p = start; p != end; ++p)
-        printf("%c", *p);
-    return p;
-}
-
 int main(int argc, char* argv[]) {
     if (argc < 3) {
         fprintf(stderr, "usage: %s FILENAME STRING\n", argv[0]);
@@ -32,7 +25,6 @@ int main(int argc, char* argv[]) {
     }
 
     const char* pat = argv[2];
-    size_t pat_ln = strlen(pat);
 
     /* Open file */
     FILE* fp = fopen(argv[1], "r");
@@ -58,11 +50,13 @@ int main(int argc, char* argv[]) {
             printf("%d: ", num);
 
             const char* p = buf; // Pointer to print
+            size_t len = (size_t)(ptr_found - p);
             do {
                 /* Print match */
-                p = print_range(p, ptr_found);
+                p = p + fwrite(p, 1, len, stdout);
                 printf(RED);
-                p = print_range(p, ptr_found + pat_ln);
+                len = (size_t)(ptr_found + strlen(pat) - p);
+                p = p + fwrite(p, 1, len, stdout);
                 printf(RESET);
                 /* Find next match if any */
             } while ((ptr_found = brute_force_search(p, pat)) != NULL);
