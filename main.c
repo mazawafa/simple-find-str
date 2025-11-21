@@ -44,6 +44,12 @@ int main(int argc, char* argv[]) {
 
     /* Read file line by line */
     char* buf = malloc(BUF_SZ); // Buffer to keep line characters
+    if (!buf) {
+        fprintf(stderr, "memory allocation failed\n");
+        fclosed(fp);
+        return EXIT_FAILURE;
+    }
+
     char* ptr_found;            // Pointer to current match
     int num = 1;                // Current line number
     while (fgets(buf, BUF_SZ, fp)) {
@@ -68,5 +74,7 @@ int main(int argc, char* argv[]) {
         ++num;
     }
 
+    free(buf);
+    fclose(fp);
     return EXIT_SUCCESS;
 }
