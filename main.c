@@ -1,4 +1,3 @@
-#include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -46,7 +45,7 @@ int main(int argc, char* argv[]) {
     char* buf = malloc(BUF_SZ); // Buffer to keep line characters
     if (!buf) {
         fprintf(stderr, "memory allocation failed\n");
-        fclosed(fp);
+        fclose(fp);
         return EXIT_FAILURE;
     }
 
