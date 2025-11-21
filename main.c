@@ -7,12 +7,12 @@
 #define RED "\033[1;31m"
 #define RESET "\033[0m"
 
-const char* brute_force_search(const char* sub, const char* str) {
+const char* brute_force_search(const char* haystack, const char* needle) {
     size_t i, j;
-    for (i = 0; str[i] != '\0'; ++i) {
-        for (j = 0; str[i + j] == sub[j]; ++j) {
-            if (sub[j + 1] == '\0')
-                return str + i;
+    for (i = 0; haystack[i] != '\0'; ++i) {
+        for (j = 0; haystack[i + j] == needle[j]; ++j) {
+            if (needle[j + 1] == '\0')
+                return haystack + i;
         }
     }
     return NULL;
@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
     int num = 1;     // Current line number
     while (fgets(buf, BUF_SZ, fp) != NULL) {
         /* FIND MATCHES */
-        ptr_found = brute_force_search(pat, buf);
+        ptr_found = brute_force_search(buf, pat);
         if (ptr_found) {
             printf("%d: ", num);
 
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
                 p = print_range(p, ptr_found + pat_ln);
                 printf(RESET);
                 /* Find next match if any */
-            } while ((ptr_found = brute_force_search(pat, p)) != NULL);
+            } while ((ptr_found = brute_force_search(p, pat)) != NULL);
             /* Print last characters */
             printf("%s", p);
         }
