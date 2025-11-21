@@ -27,7 +27,7 @@ const char* print_range(const char* start, const char* end) {
 
 int main(int argc, char* argv[]) {
     if (argc < 3) {
-        printf("usage: %s FILENAME STRING\n", argv[0]);
+        fprintf(stderr, "usage: %s FILENAME STRING\n", argv[0]);
         return EXIT_FAILURE;
     }
 
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     /* Open file */
     FILE* fp = fopen(argv[1], "r");
     if (!fp) {
-        printf("error while opening file \"%s\"\n", argv[1]);
+        fprintf(stderr, "error while opening file \"%s\"\n", argv[1]);
         return EXIT_FAILURE;
     }
 
@@ -51,8 +51,7 @@ int main(int argc, char* argv[]) {
 
     const char* ptr_found; // Pointer to current match
     int num = 1;     // Current line number
-    while (fgets(buf, BUF_SZ, fp)) {
-
+    while (fgets(buf, BUF_SZ, fp) != NULL) {
         /* FIND MATCHES */
         ptr_found = brute_force_search(pat, buf);
         if (ptr_found) {
