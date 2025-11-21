@@ -4,8 +4,9 @@
 
 #define BUF_SZ 1000
 
-#define RED "\e[1;31m"
-#define RESET "\e[0m"
+#define ESC "\033"
+#define RED ESC "1;31m"
+#define RESET ESC "0m"
 
 char* brute_force_search(char* sub, char* str) {
     size_t i, j;
@@ -49,8 +50,8 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    char* ptr_found;            // Pointer to current match
-    int num = 1;                // Current line number
+    char* ptr_found; // Pointer to current match
+    int num = 1;     // Current line number
     while (fgets(buf, BUF_SZ, fp)) {
 
         /* FIND MATCHES */
