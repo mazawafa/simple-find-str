@@ -4,11 +4,10 @@
 
 #define BUF_SZ 1000
 
-#define ESC "\033"
-#define RED ESC "1;31m"
-#define RESET ESC "0m"
+#define RED "\033[1;31m"
+#define RESET "\033[0m"
 
-char* brute_force_search(char* sub, char* str) {
+const char* brute_force_search(const char* sub, const char* str) {
     size_t i, j;
     for (i = 0; str[i] != '\0'; ++i) {
         for (j = 0; str[i + j] == sub[j]; ++j) {
@@ -19,8 +18,8 @@ char* brute_force_search(char* sub, char* str) {
     return NULL;
 }
 
-char* print_range(const char* start, const char* end) {
-    char* p;
+const char* print_range(const char* start, const char* end) {
+    const char* p;
     for (p = start; p != end; ++p)
         printf("%c", *p);
     return p;
@@ -32,7 +31,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    char* pat = argv[2];
+    const char* pat = argv[2];
     size_t pat_ln = strlen(pat);
 
     /* Open file */
@@ -50,7 +49,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    char* ptr_found; // Pointer to current match
+    const char* ptr_found; // Pointer to current match
     int num = 1;     // Current line number
     while (fgets(buf, BUF_SZ, fp)) {
 
@@ -59,7 +58,7 @@ int main(int argc, char* argv[]) {
         if (ptr_found) {
             printf("%d: ", num);
 
-            char* p = buf; // Pointer to print
+            const char* p = buf; // Pointer to print
             do {
                 /* Print match */
                 p = print_range(p, ptr_found);
