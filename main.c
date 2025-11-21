@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
                 p = print_range(p, ptr_found + pat_ln);
                 printf(RESET);
                 /* Find next match if any */
-            } while (ptr_found = brute_force_search(pat, ptr_found + pat_ln));
+            } while ((ptr_found = brute_force_search(pat, p)) != NULL);
             /* Print last characters */
             printf("%s", p);
         }
